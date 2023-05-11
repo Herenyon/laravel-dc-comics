@@ -7,11 +7,11 @@
          @vite('resources/js/app.js')
     </head>
     <body>
-        <div class="container">
-            @include('partials.header')
+        @include('partials.header')
+        <main class="container">
             @yield('page.main')
-            <div><a href="{{ route('comics.index') }}" class="btn btn-primary">Per la lista Fumetti</a></div>
-        </div>
-
+        </main>
+        
+        <footer></footer>
     </body>
 </html>

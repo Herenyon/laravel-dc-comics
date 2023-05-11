@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comics;
 use Illuminate\Http\Request;
 
 class ComicsController extends Controller
@@ -14,7 +15,8 @@ class ComicsController extends Controller
      */
     public function index()
     {
-        //
+        $comics = Comics::all();
+        return view('comics.index', compact('comics'));
     }
 
     /**
@@ -24,7 +26,7 @@ class ComicsController extends Controller
      */
     public function create()
     {
-        //
+        return view('comics.create');
     }
 
     /**
@@ -35,7 +37,22 @@ class ComicsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+
+        $newComic = new Comics();
+        $newComic->title = $data['title'];
+        $newComic->description = $data['description'];
+        $newComic->thumb = $data['thumb'];
+        $newComic->price = $data['price'];
+        $newComic->series = $data['series'];
+        $newComic->sale_date = $data['sale_date'];
+        $newComic->type = $data['type'];
+        $newComic->artists = $data['artists'];
+        $newComic->writers = $data['writers'];
+        $newComic->save();
+
+        return redirect()->route('comics.show', $newComic->id);
     }
 
     /**
@@ -46,7 +63,8 @@ class ComicsController extends Controller
      */
     public function show($id)
     {
-        //
+        $comics = Comics::find($id);
+        return view('comics.show', compact('comics'));
     }
 
     /**
